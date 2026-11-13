@@ -1,0 +1,32 @@
+# Continuous Integration: every push is built and tested on BOTH Ubuntu and
+# Windows by GitHub's servers. If something compiles on your VM but not on
+# Windows (or the reverse), you find out right away, not three lessons later.
+# Results: the "Actions" tab on GitHub, plus a green check or red X on each commit.
+name: build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: ubuntu-gcc-asan
+            config: -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=gcc
+          - os: windows-latest
+            name: windows-msvc
+            config: -DSQ_SANITIZE=OFF
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build ${{ matrix.config }}
+      - name: Build
+        run: cmake --build build --config Debug
+      - name: Test
+        run: ctest --test-dir build -C Debug --output-on-failure

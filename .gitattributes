@@ -1,0 +1,17 @@
+# Git converts line endings so Windows (CRLF) and Ubuntu (LF) don't fight.
+# Everything text is stored as LF in the repo; checked out natively per OS.
+* text=auto eol=lf
+
+# Windows-only scripts keep CRLF.
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# Binary files: never touch.
+*.png  binary
+*.jpg  binary
+*.wav  binary
+*.ogg  binary
+*.ttf  binary
+*.sav  binary
+*.pcap binary

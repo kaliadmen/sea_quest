@@ -1,0 +1,40 @@
+# --- Build output (each machine builds its own) ---
+build/
+build-*/
+cmake-build-*/
+out/
+*.o
+*.obj
+*.a
+*.lib
+*.exe
+*.pdb
+*.ilk
+
+# --- IDE clutter ---
+# CLion: keep the folder out except shared run configs, if we ever add them.
+.idea/*
+!.idea/runConfigurations/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- Tool output ---
+compile_commands.json
+Testing/
+crash-*
+leak-*
+timeout-*
+*.profraw
+
+# --- AI models and big assets (Phase 6). Models are GBs; never commit them. ---
+models/
+*.gguf
+*.safetensors
+*.bin
+
+# --- Secrets: never, ever commit these ---
+.env
+*.key
+*.pem
